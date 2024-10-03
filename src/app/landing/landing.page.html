@@ -1,0 +1,39 @@
+<ion-content color="light" class="no-margin">
+  <swiper-container
+    [modules]="swiperModules"
+    [pagination]="{ clickable: true }"
+    [keyboard]="true"
+    class="swiper-full-height"
+  >
+    <swiper-slide *ngFor="let item of displayedPictures; track: $index">
+      <div
+        [ngStyle]="{'background-image': 'url(' + item.image + ')'}"
+        class="slide-background"
+      >
+        <ion-card class="transparent-card">
+          <ion-card-header>
+            <ion-card-title>{{item.title}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="card-content-centered">
+            <p>{{item.body}}</p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button
+      expand="block"
+      shape="round"
+      color="primary"
+      size="large"
+      [strong]="true"
+      routerLink="/login"
+    >
+      <ion-text> Get Started </ion-text>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
