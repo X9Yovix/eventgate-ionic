@@ -36,7 +36,7 @@ build-job:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
 
 pages:
-  stage: deploy
+  stage: build
   image: busybox
   dependencies:
     - build-job
