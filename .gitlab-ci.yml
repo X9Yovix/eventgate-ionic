@@ -1,0 +1,47 @@
+stages:
+  - lint
+  - security_check
+  - build
+
+.default-job:
+  image: node:18
+  before_script:
+    - npm install
+
+eslint-lint:
+  stage: lint
+  extends: .default-job
+  script:
+    - npm run lint
+  after_script:
+    - echo "ESLint linting completed successfully"
+
+dependency-check:
+  stage: security_check
+  extends: .default-job
+  script:
+    - npm audit
+  after_script:
+    - echo "Dependency check completed successfully"
+
+build-app:
+  stage: build
+  extends: .default-job
+  script:
+    - npm run build --prod
+  artifacts:
+    paths:
+      - public/
+  after_script:
+    - echo "Build completed successfully"
+
+pages:
+  stage: build
+  script:
+    - mkdir -p public
+    - cp -r www/* public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
