@@ -1,0 +1,24 @@
+stages:
+  - lint
+  - security_check
+
+.default-job:
+  image: node:22
+  before_script:
+    - npm install
+
+eslint-lint:
+  stage: lint
+  extends: .default-job
+  script:
+    - npm run lint
+  after_script:
+    - echo "ESLint linting completed successfully"
+
+dependency-check:
+  stage: security_check
+  extends: .default-job
+  script:
+    - npm audit
+  after_script:
+    - echo "Dependency check completed successfully"
