@@ -24,24 +24,24 @@ dependency-check:
   after_script:
     - echo "Dependency check completed successfully"
 
-build-app:
+build-job:
   stage: build
   extends: .default-job
   script:
     - npm run build --prod
   artifacts:
     paths:
-      - public/
-  after_script:
-    - echo "Build completed successfully"
+      - build/
 
 pages:
-  stage: build
+  stage: deploy
+  image: busybox
+  dependencies:
+    - build-job
   script:
-    - mkdir -p public
-    - cp -r www/* public/
+    - mv build/ public/
   artifacts:
     paths:
-      - public
-  only:
-    - main
+      - "public/"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
