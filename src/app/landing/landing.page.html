@@ -1,11 +1,12 @@
 <ion-content color="light" class="no-margin">
   <swiper-container
+    #swiper
     [modules]="swiperModules"
     [pagination]="{ clickable: true }"
     [keyboard]="true"
     class="swiper-full-height"
   >
-    <swiper-slide *ngFor="let item of displayedPictures; track: $index">
+    <swiper-slide *ngFor="let item of displayedPictures">
       <div
         [ngStyle]="{'background-image': 'url(' + item.image + ')'}"
         class="slide-background"
@@ -31,7 +32,7 @@
       color="primary"
       size="large"
       [strong]="true"
-      routerLink="/login"
+      routerLink="/register"
     >
       <ion-text> Get Started </ion-text>
     </ion-button>

@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/login">
+        <ion-icon slot="icon-only" name="log-in-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-progress-bar *ngIf="isLoading" type="indeterminate" color="secondary">
+    </ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <img src="assets/register/register.svg" alt="EventGate Register" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <form [formGroup]="form" (ngSubmit)="onRegister()">
+
+    <ion-item class="ion-margin-bottom">
+      <ion-icon slot="start" name="accessibility-outline"></ion-icon>
+      <ion-input
+        formControlName="first_name"
+        type="text"
+        label="First Name"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+    <ion-text
+      color="danger"
+      *ngIf="form.get('first_name')?.invalid && form.get('first_name')?.touched"
+    >
+      <sub>First Name is required</sub>
+    </ion-text>
+
+    <ion-item class="ion-margin-bottom">
+      <ion-icon slot="start" name="people-outline"></ion-icon>
+      <ion-input
+        formControlName="last_name"
+        type="text"
+        label="Last Name"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+    <ion-text
+      color="danger"
+      *ngIf="form.get('last_name')?.invalid && form.get('last_name')?.touched"
+    >
+      <sub>Last Name is required</sub>
+    </ion-text>
+
+    <ion-item class="ion-margin-bottom">
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      <ion-input
+        formControlName="username"
+        type="text"
+        label="Username"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+    <ion-text
+      color="danger"
+      *ngIf="form.get('username')?.invalid && form.get('username')?.touched"
+    >
+      <sub>Username is required</sub>
+    </ion-text>
+
+    <ion-item class="ion-margin-bottom">
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      <ion-input
+        formControlName="email"
+        type="email"
+        label="Email"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+    <ion-text
+      color="danger"
+      *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+    >
+      <sub>Valid email is required</sub>
+    </ion-text>
+
+    <ion-item class="ion-margin-bottom">
+      <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+      <ion-input
+        formControlName="password"
+        type="password"
+        label="Password"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+    <ion-text
+      color="danger"
+      *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+    >
+      <sub>Password must be at least 6 characters</sub>
+    </ion-text>
+
+    <ion-button expand="block" type="submit" [disabled]="form.invalid">
+      <ion-icon slot="start" name="person-add-outline"></ion-icon>
+      Register
+    </ion-button>
+    
+  </form>
+</ion-content>
