@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -37,7 +37,7 @@ import {
   personAddOutline,
   logInOutline,
 } from 'ionicons/icons';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -67,7 +67,7 @@ import { AuthService } from '../services/auth.service';
     ReactiveFormsModule,
   ],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage{
   form!: FormGroup;
   isLoading = false;
 
@@ -79,8 +79,6 @@ export class RegisterPage implements OnInit {
     this.setUpForm();
     this.setupIcons();
   }
-
-  ngOnInit() {}
 
   setupIcons() {
     addIcons({

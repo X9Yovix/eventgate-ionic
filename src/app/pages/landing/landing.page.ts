@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonFooter,
@@ -44,7 +44,7 @@ import { RouterLink } from '@angular/router';
     RouterLink,
   ],
 })
-export class LandingPage implements OnInit {
+export class LandingPage {
   displayedPictures = [
     {
       image: 'assets/landing/backgrounds/1.jpg',
@@ -64,8 +64,4 @@ export class LandingPage implements OnInit {
   ];
 
   swiperModules = [IonicSlides];
-
-  constructor() {}
-
-  ngOnInit() {}
 }
