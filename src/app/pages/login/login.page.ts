@@ -27,21 +27,24 @@ import {
   IonCol,
   ToastController,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
 import {
-  lockClosedOutline,
-  personCircleOutline,
-  mailOutline,
+  personAddOutline,
   accessibilityOutline,
   peopleOutline,
-  personAddOutline,
+  personCircleOutline,
+  mailOutline,
+  lockClosedOutline,
+  logInOutline,
 } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+import { RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
     IonCol,
@@ -64,35 +67,35 @@ import { AuthService } from 'src/app/services/auth.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterLink,
   ],
 })
-export class RegisterPage {
+export class LoginPage {
   form!: FormGroup;
   isLoading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
+    private toastController: ToastController,
     private authService: AuthService,
-    private toastController: ToastController
+    private storageService: StorageService
   ) {
     this.setUpForm();
     addIcons({
-      lockClosedOutline,
-      personCircleOutline,
-      mailOutline,
+      personAddOutline,
       accessibilityOutline,
       peopleOutline,
-      personAddOutline,
+      personCircleOutline,
+      mailOutline,
+      lockClosedOutline,
+      logInOutline,
     });
   }
 
   setUpForm() {
     this.form = this.formBuilder.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
       username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', Validators.required],
     });
   }
 
@@ -127,21 +130,25 @@ export class RegisterPage {
         errorMessages = errorMessages.concat(
           this.extractErrorMessages(errorObj[key])
         );
+      } else {
+        errorMessages.push(errorObj[key]);
       }
     }
 
     return errorMessages;
   }
 
-  onRegister() {
+  onLogin() {
     if (this.form.valid) {
       this.isLoading = true;
       const data = this.form.value;
-      this.authService.register(data).subscribe({
+      this.authService.login(data).subscribe({
         next: (response) => {
           console.log(response);
           this.isLoading = false;
           this.presentToast(response.message);
+          this.storageService.set('token', response.token);
+          this.storageService.set('user', response.user);
         },
         error: (error) => {
           this.isLoading = false;

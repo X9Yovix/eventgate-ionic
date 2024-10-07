@@ -34,7 +34,7 @@ export class AuthService {
       .pipe(catchError(this.errorHandler));
   }
 
-  login(data: any) {
+  public login(data: any): Observable<any> {
     const url = `${environment.eventgateApi}/profiles/login`;
     return this.http
       .post(url, data, { headers: this.getHeaders() })

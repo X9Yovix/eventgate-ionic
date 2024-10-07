@@ -4,11 +4,6 @@
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
     <ion-title>Register</ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/login">
-        <ion-icon slot="icon-only" name="log-in-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
 
     <ion-progress-bar *ngIf="isLoading" type="indeterminate" color="secondary">
     </ion-progress-bar>
@@ -16,7 +11,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
   <ion-grid>
     <ion-row>
       <ion-col size="12" class="ion-text-center">
@@ -26,7 +20,6 @@
   </ion-grid>
 
   <form [formGroup]="form" (ngSubmit)="onRegister()">
-
     <ion-item class="ion-margin-bottom">
       <ion-icon slot="start" name="accessibility-outline"></ion-icon>
       <ion-input
@@ -111,6 +104,5 @@
       <ion-icon slot="start" name="person-add-outline"></ion-icon>
       Register
     </ion-button>
-    
   </form>
 </ion-content>
