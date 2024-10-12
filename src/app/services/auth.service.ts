@@ -40,4 +40,18 @@ export class AuthService {
       .post(url, data, { headers: this.getHeaders() })
       .pipe(catchError(this.errorHandler));
   }
+
+  public logout(): Observable<any> {
+    const url = `${environment.eventgateApi}/profiles/logout`;
+    return this.http
+      .post(url, { headers: this.getHeaders() })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  public verifyToken(token: string): Observable<any> {
+    const url = `${environment.eventgateApi}/token/verify/`;
+    return this.http
+      .post(url, { token }, { headers: this.getHeaders() })
+      .pipe(catchError(this.errorHandler));
+  }
 }

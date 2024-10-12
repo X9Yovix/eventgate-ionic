@@ -6,7 +6,7 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
-//import { StorageService } from 'src/app/services//storage/storage.service';
+import { StorageService } from 'src/app/services//storage/storage.service';
 import { importProvidersFrom } from '@angular/core';
 
 bootstrapApplication(AppComponent, {
@@ -16,6 +16,6 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(),
     importProvidersFrom(IonicStorageModule.forRoot()), 
-    //StorageService,
+    StorageService,
   ],
 }).catch(err => console.error(err));

@@ -37,7 +37,7 @@ import {
   logInOutline,
 } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
@@ -78,7 +78,8 @@ export class LoginPage {
     private formBuilder: FormBuilder,
     private toastController: ToastController,
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) {
     this.setUpForm();
     addIcons({
@@ -149,6 +150,7 @@ export class LoginPage {
           this.presentToast(response.message);
           this.storageService.set('token', response.token);
           this.storageService.set('user', response.user);
+          this.router.navigateByUrl('/home');
         },
         error: (error) => {
           this.isLoading = false;

@@ -9,7 +9,7 @@ register();
   selector: 'app-root',
   templateUrl: 'app.component.html',
   standalone: true,
-  imports: [IonApp, IonRouterOutlet, IonicStorageModule],
+  imports: [IonApp, IonRouterOutlet,IonicStorageModule],
 })
 export class AppComponent {
   constructor() {}
