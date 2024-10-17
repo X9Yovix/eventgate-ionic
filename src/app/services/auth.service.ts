@@ -6,12 +6,16 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { StorageService } from './storage/storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService
+  ) {}
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -52,6 +56,17 @@ export class AuthService {
     const url = `${environment.eventgateApi}/token/verify/`;
     return this.http
       .post(url, { token }, { headers: this.getHeaders() })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  public async refreshToken(refresh: string): Promise<Observable<any>> {
+    const url = `${environment.eventgateApi}/token/refresh/`;
+    const token = await this.storageService.get('token');
+    const headers = this.getHeaders()
+      .set('Authorization', `Bearer ${token.access}`)
+      .set('Content-Type', 'application/json');
+    return this.http
+      .post(url, { refresh }, { headers })
       .pipe(catchError(this.errorHandler));
   }
 }
