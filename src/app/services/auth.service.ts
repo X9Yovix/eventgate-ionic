@@ -90,4 +90,29 @@ export class AuthService {
       .post(url, { email }, { headers: this.getHeaders() })
       .pipe(catchError(this.errorHandler));
   }
+
+  public async completeProfile(data: FormData): Promise<Observable<any>> {
+    const url = `${environment.eventgateApi}/profiles/complete-profile`;
+    const token = await this.storageService.get('token');
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${token.access}`
+    );
+
+    return this.http
+      .patch(url, data, { headers })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  public async skipCompleteProfile(): Promise<Observable<any>> {
+    const url = `${environment.eventgateApi}/profiles/skip-complete-profile`;
+    const token = await this.storageService.get('token');
+    const headers = this.getHeaders().set(
+      'Authorization',
+      `Bearer ${token.access}`
+    );
+    return this.http
+      .patch(url, null, { headers })
+      .pipe(catchError(this.errorHandler));
+  }
 }

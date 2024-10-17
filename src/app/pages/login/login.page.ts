@@ -147,9 +147,21 @@ export class LoginPage {
         next: (response) => {
           console.log(response);
           this.isLoading = false;
+          if (
+            !response.profile.is_profile_complete &&
+            !response.profile.skip_is_profile_complete
+          ) {
+            console.log('here');
+            this.presentToast(response.message);
+            this.storageService.set('token', response.token);
+            this.storageService.set('user', response.user);
+            this.router.navigateByUrl('/complete-profile');
+            return;
+          }
           this.presentToast(response.message);
           this.storageService.set('token', response.token);
           this.storageService.set('user', response.user);
+          this.storageService.set('profile', response.profile);
           this.router.navigateByUrl('/home');
         },
         error: (error) => {

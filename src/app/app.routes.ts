@@ -36,6 +36,14 @@ export const routes: Routes = [
     canActivate: [notAuthGuard],
   },
   {
+    path: 'complete-profile',
+    loadComponent: () =>
+      import('./pages/complete-profile/complete-profile.page').then(
+        (m) => m.CompleteProfilePage
+      ),
+    canActivate: [authGuard],
+  },
+  {
     path: '',
     component: MainComponent,
     canActivate: [authGuard],
