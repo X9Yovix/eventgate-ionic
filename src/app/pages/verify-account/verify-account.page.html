@@ -1,13 +1,59 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>verify-account</ion-title>
+    <ion-title>Verify your account</ion-title>
+
+    <ion-progress-bar *ngIf="isLoading" type="indeterminate" color="secondary">
+    </ion-progress-bar>
   </ion-toolbar>
 </ion-header>
+<ion-content class="ion-padding">
+  <ion-text>
+    <h2>Please enter the OTP sent to your email</h2>
+  </ion-text>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">verify-account</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <form [formGroup]="form" (ngSubmit)="onVerify()">
+    <ion-item class="ion-margin-bottom">
+      <ion-icon slot="start" name="keypad-outline"></ion-icon>
+      <ion-input
+        formControlName="otp_code"
+        type="number"
+        label="Otp Code"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+    <ion-text
+      color="danger"
+      *ngIf="form.get('otp_code')?.invalid && form.get('otp_code')?.touched"
+    >
+      <sub>OTP Code must be 6 digits</sub>
+    </ion-text>
+
+    <ion-grid>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="auto" class="ion-text-center">
+          <ion-button expand="block" type="submit" [disabled]="form.invalid">
+            <ion-icon slot="start" name="checkbox-outline"></ion-icon>
+            Verify
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="auto" class="ion-text-center">
+          <ion-button expand="block" color="secondary" (click)="resendOtpCode()">
+            <ion-icon slot="start" name="refresh-circle-outline"></ion-icon>
+            Resend Code
+          </ion-button>
+        </ion-col>
+        <ion-col size="auto" class="ion-text-center">
+          <ion-button expand="block" color="secondary" (click)="onCancel()">
+            <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+            Cancel
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>
+  </form>
 </ion-content>

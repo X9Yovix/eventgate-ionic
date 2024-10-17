@@ -69,4 +69,25 @@ export class AuthService {
       .post(url, { refresh }, { headers })
       .pipe(catchError(this.errorHandler));
   }
+
+  public verifyOtp(otp_code: string, email: string): Observable<any> {
+    const url = `${environment.eventgateApi}/profiles/verify-otp`;
+    return this.http
+      .post(url, { otp_code, email }, { headers: this.getHeaders() })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  public cancelAccountCreation(email: string): Observable<any> {
+    const url = `${environment.eventgateApi}/profiles/cancel-account`;
+    return this.http
+      .post(url, { email }, { headers: this.getHeaders() })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  public resendOtp(email: string): Observable<any> {
+    const url = `${environment.eventgateApi}/profiles/resend-otp`;
+    return this.http
+      .post(url, { email }, { headers: this.getHeaders() })
+      .pipe(catchError(this.errorHandler));
+  }
 }

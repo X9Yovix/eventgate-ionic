@@ -37,6 +37,7 @@ import {
   personAddOutline,
 } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -73,7 +74,8 @@ export class RegisterPage {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router
   ) {
     this.setUpForm();
     addIcons({
@@ -142,6 +144,8 @@ export class RegisterPage {
           console.log(response);
           this.isLoading = false;
           this.presentToast(response.message);
+          const extras = { queryParams: { email: data.email } };
+          this.router.navigate(['/verify-account'], extras);
         },
         error: (error) => {
           this.isLoading = false;
