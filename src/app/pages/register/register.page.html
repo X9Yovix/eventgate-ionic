@@ -4,9 +4,10 @@
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
     <ion-title>Register</ion-title>
-
-    <ion-progress-bar *ngIf="isLoading" type="indeterminate" color="secondary">
+    @if(isLoading){
+    <ion-progress-bar type="indeterminate" color="secondary">
     </ion-progress-bar>
+    }
   </ion-toolbar>
 </ion-header>
 
@@ -29,12 +30,11 @@
         labelPlacement="floating"
       ></ion-input>
     </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="form.get('first_name')?.invalid && form.get('first_name')?.touched"
-    >
+    @if(form.get('first_name')?.invalid && form.get('first_name')?.touched){
+    <ion-text color="danger">
       <sub>First Name is required</sub>
     </ion-text>
+    }
 
     <ion-item class="ion-margin-bottom">
       <ion-icon slot="start" name="people-outline"></ion-icon>
@@ -45,12 +45,12 @@
         labelPlacement="floating"
       ></ion-input>
     </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="form.get('last_name')?.invalid && form.get('last_name')?.touched"
-    >
+
+    @if(form.get('last_name')?.invalid && form.get('last_name')?.touched){
+    <ion-text color="danger">
       <sub>Last Name is required</sub>
     </ion-text>
+    }
 
     <ion-item class="ion-margin-bottom">
       <ion-icon slot="start" name="person-circle-outline"></ion-icon>
@@ -61,12 +61,12 @@
         labelPlacement="floating"
       ></ion-input>
     </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="form.get('username')?.invalid && form.get('username')?.touched"
-    >
+
+    @if(form.get('username')?.invalid && form.get('username')?.touched){
+    <ion-text color="danger">
       <sub>Username is required</sub>
     </ion-text>
+    }
 
     <ion-item class="ion-margin-bottom">
       <ion-icon slot="start" name="mail-outline"></ion-icon>
@@ -77,12 +77,12 @@
         labelPlacement="floating"
       ></ion-input>
     </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
-    >
+
+    @if(form.get('email')?.invalid && form.get('email')?.touched){
+    <ion-text color="danger">
       <sub>Valid email is required</sub>
     </ion-text>
+    }
 
     <ion-item class="ion-margin-bottom">
       <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
@@ -93,12 +93,12 @@
         labelPlacement="floating"
       ></ion-input>
     </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
-    >
+
+    @if(form.get('password')?.invalid && form.get('password')?.touched){
+    <ion-text color="danger">
       <sub>Password must be at least 6 characters</sub>
     </ion-text>
+    }
 
     <ion-button expand="block" type="submit" [disabled]="form.invalid">
       <ion-icon slot="start" name="person-add-outline"></ion-icon>

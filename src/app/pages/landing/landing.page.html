@@ -6,7 +6,8 @@
     [keyboard]="true"
     class="swiper-full-height"
   >
-    <swiper-slide *ngFor="let item of displayedPictures">
+    @for (item of displayedPictures; track item.image) {
+    <swiper-slide>
       <div
         [ngStyle]="{'background-image': 'url(' + item.image + ')'}"
         class="slide-background"
@@ -21,6 +22,7 @@
         </ion-card>
       </div>
     </swiper-slide>
+    }
   </swiper-container>
 </ion-content>
 

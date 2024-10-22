@@ -11,9 +11,10 @@
         routerLink="/register"
       ></ion-icon>
     </ion-buttons>
-
-    <ion-progress-bar *ngIf="isLoading" type="indeterminate" color="secondary">
+    @if(isLoading){
+    <ion-progress-bar type="indeterminate" color="secondary">
     </ion-progress-bar>
+    }
   </ion-toolbar>
 </ion-header>
 
@@ -36,13 +37,11 @@
         labelPlacement="floating"
       ></ion-input>
     </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="form.get('username')?.invalid && form.get('username')?.touched"
-    >
+    @if(form.get('username')?.invalid && form.get('username')?.touched){
+    <ion-text color="danger">
       <sub>Username is required</sub>
     </ion-text>
-
+    }
     <ion-item class="ion-margin-bottom">
       <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
       <ion-input
@@ -52,12 +51,11 @@
         labelPlacement="floating"
       ></ion-input>
     </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
-    >
+    @if(form.get('password')?.invalid && form.get('password')?.touched){
+    <ion-text color="danger">
       <sub>Password is required</sub>
     </ion-text>
+    }
 
     <ion-button expand="block" type="submit" [disabled]="form.invalid">
       <ion-icon slot="start" name="log-in-outline"></ion-icon>

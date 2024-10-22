@@ -1,9 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Verify your account</ion-title>
-
-    <ion-progress-bar *ngIf="isLoading" type="indeterminate" color="secondary">
+    @if(isLoading){
+    <ion-progress-bar type="indeterminate" color="secondary">
     </ion-progress-bar>
+    }
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
@@ -21,15 +22,14 @@
         labelPlacement="floating"
       ></ion-input>
     </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="form.get('otp_code')?.invalid && form.get('otp_code')?.touched"
-    >
+
+    @if(form.get('otp_code')?.invalid && form.get('otp_code')?.touched){
+    <ion-text color="danger">
       <sub>OTP Code must be 6 digits</sub>
     </ion-text>
+    }
 
     <ion-grid>
-
       <ion-row class="ion-justify-content-center">
         <ion-col size="auto" class="ion-text-center">
           <ion-button expand="block" type="submit" [disabled]="form.invalid">
@@ -41,7 +41,11 @@
 
       <ion-row class="ion-justify-content-center">
         <ion-col size="auto" class="ion-text-center">
-          <ion-button expand="block" color="secondary" (click)="resendOtpCode()">
+          <ion-button
+            expand="block"
+            color="secondary"
+            (click)="resendOtpCode()"
+          >
             <ion-icon slot="start" name="refresh-circle-outline"></ion-icon>
             Resend Code
           </ion-button>
@@ -53,7 +57,6 @@
           </ion-button>
         </ion-col>
       </ion-row>
-      
     </ion-grid>
   </form>
 </ion-content>

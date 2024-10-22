@@ -12,9 +12,10 @@
       >
       </ion-icon>
     </ion-buttons>
-
-    <ion-progress-bar *ngIf="isLoading" type="indeterminate" color="secondary">
+    @if(isLoading) {
+    <ion-progress-bar type="indeterminate" color="secondary">
     </ion-progress-bar>
+    }
   </ion-toolbar>
 </ion-header>
 
@@ -32,14 +33,13 @@
           ></ion-input>
         </ion-item>
       </ion-col>
+      @if(form.get('event_name')?.invalid && form.get('event_name')?.touched){
       <ion-col size="12">
-        <ion-text
-          color="danger"
-          *ngIf="form.get('event_name')?.invalid && form.get('event_name')?.touched"
-        >
+        <ion-text color="danger">
           <sub>Event name is required</sub>
         </ion-text>
       </ion-col>
+      }
     </ion-row>
 
     <ion-row class="ion-margin-bottom">
@@ -54,14 +54,13 @@
           ></ion-input>
         </ion-item>
       </ion-col>
+      @if(form.get('location')?.invalid && form.get('location')?.touched){
       <ion-col size="12">
-        <ion-text
-          color="danger"
-          *ngIf="form.get('location')?.invalid && form.get('location')?.touched"
-        >
+        <ion-text color="danger">
           <sub>Location is required</sub>
         </ion-text>
       </ion-col>
+      }
       <ion-col size="auto">
         <ion-row class="ion-justify-content-center">
           <ion-col size="12" class="ion-text-center">
@@ -102,13 +101,11 @@
       </ion-col>
     </ion-row>
 
-    <ion-text
-      color="danger"
-      *ngIf="form.get('day')?.invalid && form.get('day')?.touched"
-    >
+    @if(form.get('day')?.invalid && form.get('day')?.touched){
+    <ion-text color="danger">
       <sub>Day is required</sub>
     </ion-text>
-
+    }
     <ion-row class="ion-margin-bottom ion-justify-content-center time-icons">
       <ion-col size="auto">
         <ion-item lines="none">
@@ -133,18 +130,15 @@
       </ion-col>
     </ion-row>
 
-    <ion-text
-      color="danger"
-      *ngIf="form.get('start_time')?.invalid && form.get('start_time')?.touched"
-    >
+    @if(form.get('start_time')?.invalid && form.get('start_time')?.touched){
+    <ion-text color="danger">
       <sub>Start Time is required</sub>
     </ion-text>
-    <ion-text
-      color="danger"
-      *ngIf="form.get('end_time')?.invalid && form.get('end_time')?.touched"
-    >
+    } @if(form.get('end_time')?.invalid && form.get('end_time')?.touched){
+    <ion-text color="danger">
       <sub>End Time is required</sub>
     </ion-text>
+    }
 
     <ion-row class="ion-margin-bottom ion-justify-content-center time-icons">
       <ion-col size="auto">
@@ -165,27 +159,27 @@
             Add
           </ion-button>
         </ion-item>
-
-        <ion-list *ngIf="filteredTags.length > 0">
-          <ion-item *ngFor="let tag of filteredTags" (click)="selectTag(tag)">
-            {{ tag }}
-          </ion-item>
+        @if(filteredTags.length > 0){
+        <ion-list>
+          @for(tag of filteredTags; track tag){
+          <ion-item (click)="selectTag(tag)"> {{ tag }} </ion-item>
+          }
         </ion-list>
-
-        <ion-chip *ngFor="let tag of form.get('selected_tags')?.value">
+        } @for(tag of form.get('selected_tags')?.value; track tag){
+        <ion-chip>
           <ion-label>{{ tag }}</ion-label>
           <ion-icon name="close-circle" (click)="removeTag(tag)"></ion-icon>
         </ion-chip>
+        }
       </ion-col>
-
+      @if(form.get('selected_tags')?.errors?.['tag_required'] &&
+      form.get('tag')?.touched){
       <ion-col size="auto">
-        <ion-text
-          color="danger"
-          *ngIf="form.get('selected_tags')?.errors?.['tag_required'] && form.get('tag')?.touched"
-        >
+        <ion-text color="danger">
           <sub>At least one tag is required</sub>
         </ion-text>
       </ion-col>
+      }
     </ion-row>
 
     <ion-card>
@@ -208,7 +202,8 @@
         <ion-col size="12">
           <ion-grid>
             <ion-row class="ion-justify-content-center">
-              <ion-col size="auto" *ngFor="let image of images; let i = index">
+              @for(image of images; track image; let i = $index){
+              <ion-col size="auto">
                 <div class="image-preview">
                   <img [src]="getImagePreview(i)" alt="Selected Image" />
                   <ion-icon
@@ -218,6 +213,7 @@
                   ></ion-icon>
                 </div>
               </ion-col>
+              }
             </ion-row>
           </ion-grid>
         </ion-col>
