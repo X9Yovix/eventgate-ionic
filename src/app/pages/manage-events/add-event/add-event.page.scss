@@ -1,0 +1,29 @@
+#map {
+  height: 400px;
+  width: 100%;
+}
+
+.image-preview {
+  position: relative;
+  display: inline-block;
+}
+
+.image-preview img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.remove-icon {
+  position: absolute;
+  top: -12px;
+  right: -14px;
+  color: var(--ion-color-secondary);
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.time-icons ion-icon[slot="start"] {
+  margin-inline-end: 5px !important;
+}

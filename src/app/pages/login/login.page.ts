@@ -38,7 +38,7 @@ import {
 } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
@@ -145,23 +145,21 @@ export class LoginPage {
       const data = this.form.value;
       this.authService.login(data).subscribe({
         next: (response) => {
-          console.log(response);
           this.isLoading = false;
+          this.storageService.set('token', response.token);
+          this.storageService.set('user', response.user);
+          this.storageService.set('profile', response.profile);
+          this.presentToast(response.message);
+
           if (
             !response.profile.is_profile_complete &&
             !response.profile.skip_is_profile_complete
           ) {
-            console.log('here');
-            this.presentToast(response.message);
-            this.storageService.set('token', response.token);
-            this.storageService.set('user', response.user);
+            this.authService.loadToken();
             this.router.navigateByUrl('/complete-profile');
             return;
           }
-          this.presentToast(response.message);
-          this.storageService.set('token', response.token);
-          this.storageService.set('user', response.user);
-          this.storageService.set('profile', response.profile);
+
           this.router.navigateByUrl('/home');
         },
         error: (error) => {

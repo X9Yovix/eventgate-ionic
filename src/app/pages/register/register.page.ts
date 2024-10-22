@@ -36,7 +36,7 @@ import {
   peopleOutline,
   personAddOutline,
 } from 'ionicons/icons';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({

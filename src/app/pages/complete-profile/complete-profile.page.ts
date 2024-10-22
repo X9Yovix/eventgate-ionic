@@ -25,7 +25,7 @@ import {
   IonRow,
 } from '@ionic/angular/standalone';
 import { ToastController } from '@ionic/angular';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import {
@@ -155,7 +155,7 @@ export class CompleteProfilePage {
     }
   }
 
-  async onCompleteProfile() {
+  onCompleteProfile() {
     this.isLoading = true;
     const formData = new FormData();
     const formValue = this.form.value;
@@ -168,8 +168,8 @@ export class CompleteProfilePage {
     /* for (const [key, value] of (formData as any).entries()) {
       console.log(`${key}: ${value}`);
     } */
-    const observable = await this.authService.completeProfile(formData);
-    observable.subscribe({
+
+    this.authService.completeProfile(formData).subscribe({
       next: (response) => {
         console.log(response);
         this.isLoading = false;
@@ -184,11 +184,10 @@ export class CompleteProfilePage {
     });
   }
 
-  async onSkip() {
+  onSkip() {
     console.log('here');
     this.isLoading = true;
-    const observable = await this.authService.skipCompleteProfile();
-    observable.subscribe({
+    this.authService.skipCompleteProfile().subscribe({
       next: (response) => {
         console.log(response);
         this.isLoading = false;

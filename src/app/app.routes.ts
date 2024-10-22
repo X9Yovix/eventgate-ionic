@@ -66,6 +66,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'manage-events/add-event',
+        loadComponent: () =>
+          import('./pages/manage-events/add-event/add-event.page').then(
+            (m) => m.AddEventPage
+          ),
+      },
+      {
         path: 'settings',
         loadComponent: () =>
           import('./pages/settings/settings.page').then((m) => m.SettingsPage),
