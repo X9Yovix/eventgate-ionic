@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   eventgateApi: 'http://localhost:8000/api',
+  eventgateUri: 'http://localhost:8000',
 };
 
 /*

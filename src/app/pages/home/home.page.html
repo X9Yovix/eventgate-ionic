@@ -1,13 +1,89 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Events</ion-title>
+    @if(isLoading) {
+    <ion-progress-bar type="indeterminate" color="secondary">
+    </ion-progress-bar>
+    }
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  @if(events.length>0){ @for(event of events; track event){
+
+  <ion-card class="event-card">
+    <ion-card-header>
+      <ion-card-title>{{ event.event_name }}</ion-card-title>
+      <ion-card-subtitle>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="calendar-outline"></ion-icon>
+          <ion-label>Date: {{ event.day | date }}</ion-label>
+        </ion-item>
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    @if(event.images?.length > 0){
+    <swiper-container
+      slides-per-view="1"
+      speed="500"
+      [loop]="event.images.length > 2"
+      css-mode="true"
+      navigation="true"
+      pagination="true"
+      scrollbar="true"
+    >
+      @for(key of event.images; track key){
+      <swiper-slide><img [src]="getFullImageUrl(key)" /></swiper-slide>
+      }
+    </swiper-container>
+    }@else{
+    <div class="placeholder">
+      <img
+        src="https://placehold.co/308x308/000000/FFF"
+        alt="No Image Available"
+      />
+    </div>
+    }
+
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="time-outline"></ion-icon>
+        <ion-label>
+          Time: {{ event.start_time | shortTime }} - {{ event.end_time |
+          shortTime}}
+        </ion-label>
+      </ion-item>
+
+      <swiper-container slides-per-view="4" css-mode="true" scrollbar="true">
+        @for(tag of event.tags; track tag){
+        <swiper-slide class="ion-margin-bottom">
+          <ion-chip>
+            <ion-label>{{ tag }}</ion-label>
+          </ion-chip>
+        </swiper-slide>
+        }
+      </swiper-container>
+
+      <ion-button
+        expand="block"
+        color="primary"
+        (click)="viewEvent(event)"
+        slot="end"
+      >
+        <ion-icon slot="start" name="eye-outline"></ion-icon>
+        View Event
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+  } }@else {
+  <ion-item>
+    <ion-label>No events available at the moment.</ion-label>
+  </ion-item>
+  }
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingText="Please wait..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

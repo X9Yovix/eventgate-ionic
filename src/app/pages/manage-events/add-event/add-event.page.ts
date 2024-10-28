@@ -394,6 +394,7 @@ export class AddEventPage implements OnInit {
         next: (response) => {
           this.isLoading = false;
           this.presentToast(response.message);
+          //this.clearData();
           this.router.navigate(['/manage-events']);
         },
         error: (error) => {

@@ -36,4 +36,16 @@ export class EventService {
     const url = `${environment.eventgateApi}/events/add`;
     return this.http.post(url, data).pipe(catchError(this.errorHandler));
   }
+
+  public getRecentEvents(page: number, page_size: number): Observable<any> {
+    const url = `${environment.eventgateApi}/events/recent`;
+    return this.http
+      .get(url, {
+        params: {
+          page: page.toString(),
+          page_size: page_size.toString(),
+        },
+      })
+      .pipe(catchError(this.errorHandler));
+  }
 }
