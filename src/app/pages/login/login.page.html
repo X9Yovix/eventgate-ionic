@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon
+        slot="icon-only"
+        name="person-add-outline"
+        routerLink="/register"
+      ></ion-icon>
+    </ion-buttons>
+    @if(isLoading){
+    <ion-progress-bar type="indeterminate" color="secondary">
+    </ion-progress-bar>
+    }
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <img src="assets/login/login.svg" alt="EventGate Register" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <form [formGroup]="form" (ngSubmit)="onLogin()">
+    <ion-item class="ion-margin-bottom">
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      <ion-input
+        formControlName="username"
+        type="text"
+        label="Username"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+    @if(form.get('username')?.invalid && form.get('username')?.touched){
+    <ion-text color="danger">
+      <sub>Username is required</sub>
+    </ion-text>
+    }
+    <ion-item class="ion-margin-bottom">
+      <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+      <ion-input
+        formControlName="password"
+        type="password"
+        label="Password"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+    @if(form.get('password')?.invalid && form.get('password')?.touched){
+    <ion-text color="danger">
+      <sub>Password is required</sub>
+    </ion-text>
+    }
+
+    <ion-button expand="block" type="submit" [disabled]="form.invalid">
+      <ion-icon slot="start" name="log-in-outline"></ion-icon>
+      Login
+    </ion-button>
+  </form>
+</ion-content>
